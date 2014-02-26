@@ -477,13 +477,12 @@ def divideSeries(requestContext, dividendSeriesList, divisorSeriesList):
 
 
   """
-  if len(divisorSeriesList) != 1:
-    raise ValueError("divideSeries second argument must reference exactly 1 series")
+  if len(divisorSeriesList) != len(dividendSeriesList):
+    raise ValueError("divisorSeriesList and dividendSeriesList should contain the same amount of series")
 
-  divisorSeries = divisorSeriesList[0]
   results = []
 
-  for dividendSeries in dividendSeriesList:
+  for (dividendSeries,divisorSeries) in zip(dividendSeriesList,divisorSeriesList):
     name = "divideSeries(%s,%s)" % (dividendSeries.name, divisorSeries.name)
     bothSeries = (dividendSeries, divisorSeries)
     step = reduce(lcm,[s.step for s in bothSeries])
