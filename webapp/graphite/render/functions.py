@@ -206,6 +206,7 @@ def sumSeriesWithWildcards(requestContext, seriesList, *position): #XXX
       newNames.append(newname)
     newSeries[newname].name = newname
 
+  newNames.sort()
   return [newSeries[name] for name in newNames]
 
 def averageSeriesWithWildcards(requestContext, seriesList, *position): #XXX
@@ -233,7 +234,7 @@ def averageSeriesWithWildcards(requestContext, seriesList, *position): #XXX
     if newname not in matchedList:
       matchedList[newname] = []
     matchedList[newname].append(series)
-  for name in matchedList.keys():
+  for name in sorted(matchedList.keys()):
     result.append( averageSeries(requestContext, (matchedList[name]))[0] )
     result[-1].name = name
   return result
